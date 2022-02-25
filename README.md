@@ -1,16 +1,53 @@
-# flutter_grpc_1
+# Description
+The hello world server and client demonstrate how to use Dart gRPC libraries to
+perform unary RPCs.
 
-A new Flutter project.
+See the definition of the hello world service in `protos/helloworld.proto`.
 
-## Getting Started
+# Run the sample code
+To compile and run the example, assuming you are in the root of the helloworld
+folder, i.e., .../example/helloworld/, first get the dependencies by running:
 
-This project is a starting point for a Flutter application.
+```sh
+$ pub get
+```
+## Run TCP sample code
 
-A few resources to get you started if this is your first Flutter project:
+Start the server:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```sh
+$ dart bin/server.dart
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Likewise, to run the client:
+
+```sh
+$ dart bin/client.dart
+```
+
+# Regenerate the stubs
+
+If you have made changes to the message or service definition in
+`protos/helloworld.proto` and need to regenerate the corresponding Dart files,
+you will need to have protoc version 3.0.0 or higher and the Dart protoc plugin
+version 0.7.9 or higher on your PATH.
+
+To install protoc, see the instructions on
+[the Protocol Buffers website](https://developers.google.com/protocol-buffers/).
+
+The easiest way to get the Dart protoc plugin is by running
+
+```sh
+$ pub global activate protoc_plugin
+```
+
+and follow the directions to add `~/.pub-cache/bin` to your PATH, if you haven't
+already done so.
+
+You can now regenerate the Dart files by running
+
+```sh
+$ protoc --dart_out=grpc:lib/src/generated -Iprotos protos/helloworld.proto
+```
+
+[error-fix](https://stackoverflow.com/questions/51706409/flutter-grpc-error-os-error-connection-refused)
